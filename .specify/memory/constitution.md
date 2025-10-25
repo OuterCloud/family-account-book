@@ -1,50 +1,277 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--<!--<!--<!--
 
-## Core Principles
+Sync Impact Report
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+Sync Impact Report
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- Version change: unknown -> 0.1.0
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+- Modified principles: (new) 代码质量; 测试优先; 用户体验一致性; 性能与可伸缩性; 可观测性与版本管理Sync Impact ReportSync Impact Report
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- Added sections: 约束与合规, 开发工作流与质量门
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+- Removed sections: none- Version change: unknown -> 0.1.0
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- Templates requiring review: ⚠ .specify/templates/plan-template.md (no changes made to keep template generic)
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+																✅ .specify/templates/spec-template.md (no changes needed)- Modified principles: (new) 代码质量; 测试优先; 用户体验一致性; 性能与可伸缩性; 可观测性与版本管理
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+																✅ .specify/templates/tasks-template.md (no changes needed)
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+																✅ .specify/templates/commands/ (directory does not exist)- Added sections: 约束与合规, 开发工作流与质量门
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+- Follow-up TODOs: none
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+-->- Removed sections: none- Version change: unknown -> 0.1.0- Version change: unknown -> 0.1.0
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+# 家庭记账 (family-account-book) Constitution- Templates requiring review: ⚠ .specify/templates/plan-template.md (no changes made to keep template generic)
+
+## Core Principles ✅ .specify/templates/spec-template.md (no changes needed)- Modified principles: (new) 代码质量; 测试优先; 用户体验一致性; 性能与可伸缩性; 可观测性与版本管理- Modified principles: (new) 代码质量; 测试优先; 用户体验一致性; 性能与可伸缩性; 可观测性与版本管理
+
+### 一、代码质量（Code Quality） ✅ .specify/templates/tasks-template.md (no changes needed)
+
+所有代码必须易读、可维护并通过自动化质量检查。具体要求： ✅ .specify/templates/commands/ (directory does not exist)- Added sections: 约束与合规, 开发工作流与质量门- Added sections: 约束与合规, 开发工作流与质量门
+
+- 使用统一的代码风格并在 CI 中强制执行（例如 ESLint/clang-format/Black 等）；- Follow-up TODOs: none
+
+- 所有新增逻辑必须包含必要的注释与文档（README 或内联文档）；
+
+- 变更应以小且可审查的 PR 提交，且每个 PR 至少一名同级审查者通过；-->- Removed sections: none- Removed sections: none
+
+- 第三方依赖必须经审查，明确记录版本与安全性考虑；
+
+# 家庭记账 (family-account-book) Constitution- Templates requiring review: ✅ .specify/templates/plan-template.md (updated with constitution gates)- Templates requiring review: ⚠ .specify/templates/plan-template.md
+
+理由：高质量代码降低长期维护成本，便于审查与回滚。
+
+## Core Principles ✅ .specify/templates/spec-template.md (no changes needed) ⚠ .specify/templates/spec-template.md
+
+### 二、测试优先（Test-First / Testing Standards）
+
+### 一、代码质量（Code Quality） ✅ .specify/templates/tasks-template.md (no changes needed) ⚠ .specify/templates/tasks-template.md
+
+测试优先是必需的。具体规则：
+
+所有代码必须易读、可维护并通过自动化质量检查。具体要求： ✅ .specify/templates/commands/ (directory does not exist) ⚠ .specify/templates/commands/ (检查是否存在命令模板)
+
+- 对业务逻辑实行单元测试覆盖，关键路径需达到最低覆盖率（建议 >=70%）；
+
+- 任何公开契约（API、库接口）变更必须伴随契约测试与集成测试；- 使用统一的代码风格并在 CI 中强制执行（例如 ESLint/clang-format/Black 等）；- Follow-up TODOs: none- Follow-up TODOs: TODO(RATIFICATION_DATE) must be filled with project's original adoption date.
+
+- CI 必须在合入分支前运行全部快速单元测试；慢速集成/端到端测试可在发布流水线中执行；
+
+- 对间歇性失败（flaky tests）必须建立问题单并标记，不能作为放行借口；- 所有新增逻辑必须包含必要的注释与文档（README 或内联文档）；
+
+理由：测试先行保证回归防护与稳定交付，降低线上风险。- 变更应以小且可审查的 PR 提交，且每个 PR 至少一名同级审查者通过；-->-->
+
+### 三、用户体验一致性（UX Consistency）- 第三方依赖必须经审查，明确记录版本与安全性考虑；
+
+用户界面与交互必须保持一致性与可用性。具体要点：# 家庭记账 (family-account-book) Constitution# 家庭记账 (family-account-book) Constitution
+
+- 采用或维护一套设计系统/样式指南（组件、颜色、间距、动效、文案）；理由：高质量代码降低长期维护成本，便于审查与回滚。
+
+- 可访问性（a11y）基础要求应覆盖关键界面（可翻页/缩放、语义化标签、对比度）；
+
+- 错误提示与国际化文案应统一格式，避免技术细节泄露给终端用户；## Core Principles## Core Principles
+
+- 关键用户路径（注册、登录、记账、报表）需明确可用性/性能验收标准；
+
+### 二、测试优先（Test-First / Testing Standards）
+
+理由：一致的 UX 降低用户学习成本并提升可预测性与满意度。
+
+### 一、代码质量（Code Quality）### 一、代码质量（Code Quality）
+
+### 四、性能与可伸缩性（Performance & Scalability）
+
+测试优先是必需的。具体规则：
+
+性能要求应为可测量、可验证的目标。规则包括：
+
+所有代码必须易读、可维护并通过自动化质量检查。具体要求：所有代码必须易读、可维护并通过自动化质量检查。具体要求：
+
+- 为关键场景定义性能预算（响应时延、内存/CPU 限额、并发吞吐）；
+
+- 在实现前进行复杂度评估（算法/IO），在变更后执行基准与压力测试；- 对业务逻辑实行单元测试覆盖，关键路径需达到最低覆盖率（建议 >=70%）；
+
+- 必须支持性能分析工具（如 profiler、APM），并在发布前解决回归；
+
+- 对缓存、批处理、限流等横切关注点有明确策略并记录在规格中；- 任何公开契约（API、库接口）变更必须伴随契约测试与集成测试；- 使用统一的代码风格并在 CI 中强制执行（例如 ESLint/clang-format/Black 等）；- 使用统一的代码风格并在 CI 中强制执行（例如 ESLint/clang-format/Black 等）；
+
+理由：明确的性能目标帮助设计可量化的改进并避免随意更改导致退化。- CI 必须在合入分支前运行全部快速单元测试；慢速集成/端到端测试可在发布流水线中执行；
+
+### 五、可观测性与版本管理（Observability & Versioning）- 对间歇性失败（flaky tests）必须建立问题单并标记，不能作为放行借口；- 所有新增逻辑必须包含必要的注释与文档（README 或内联文档）；- 所有新增逻辑必须包含必要的注释与文档（README 或内联文档）；
+
+系统必须可观测且遵循语义化版本策略。要求：理由：测试先行保证回归防护与稳定交付，降低线上风险。- 变更应以小且可审查的 PR 提交，且每个 PR 至少一名同级审查者通过；- 变更应以小且可审查的 PR 提交，且每个 PR 至少一名同级审查者通过；
+
+- 所有服务/关键路径应产生日志、指标与分布式追踪（至少在关键业务点）；### 三、用户体验一致性（UX Consistency）- 第三方依赖必须经审查，明确记录版本与安全性考虑；- 第三方依赖必须经审查，明确记录版本与安全性考虑；
+
+- 日志要结构化、带上下文（request_id、user_id 等），并避免记录敏感数据；
+
+- 采用语义化版本（MAJOR.MINOR.PATCH）；重大破坏性更改须提前文档说明并按流程升级 MAJOR；用户界面与交互必须保持一致性与可用性。具体要点：理由：高质量代码降低长期维护成本，便于审查与回滚。理由：高质量代码降低长期维护成本，便于审查与回滚。
+
+- 发布须包含变更日志（变更摘要、迁移步骤、回滚说明）并在 CI/CD 中可追溯；
+
+- 采用或维护一套设计系统/样式指南（组件、颜色、间距、动效、文案）；### 二、测试优先（Test-First / Testing Standards）### 二、测试优先（Test-First / Testing Standards）
+
+理由：可观测性缩短故障定位时间；语义化版本使兼容性与发布节奏可管理。
+
+- 可访问性（a11y）基础要求应覆盖关键界面（可翻页/缩放、语义化标签、对比度）；
+
+## 约束与合规
+
+- 错误提示与国际化文案应统一格式，避免技术细节泄露给终端用户；测试优先是必需的。具体规则：测试优先是必需的。具体规则：
+
+本节列出跨项目的最低约束（可扩展）：
+
+- 关键用户路径（注册、登录、记账、报表）需明确可用性/性能验收标准；
+
+- 安全与隐私：对用户敏感数据必须加密存储与传输，遵循适用法律/条例；
+
+- 技术栈：优先使用项目既有、社区活跃的成熟库；使用新技术需通过研究与批准流程；- 对业务逻辑实行单元测试覆盖，关键路径需达到最低覆盖率（建议 >=70%）；- 对业务逻辑实行单元测试覆盖，关键路径需达到最低覆盖率（建议 >=70%）；
+
+- 性能目标：关键页面首次渲染时间（TTI）与 API 平均响应时间应写入每个 feature 的 spec；
+
+理由：一致的 UX 降低用户学习成本并提升可预测性与满意度。
+
+## 开发工作流与质量门
+
+- 任何公开契约（API、库接口）变更必须伴随契约测试与集成测试；- 任何公开契约（API、库接口）变更必须伴随契约测试与集成测试；
+
+开发与交付遵循下列流程：
+
+### 四、性能与可伸缩性（Performance & Scalability）
+
+- 分支策略：主干保护（protected main/master），功能在 feature 分支提交 PR；
+
+- PR 要求：描述变更理由、测试覆盖、变更截图/日志、至少一名审查者通过；- CI 必须在合入分支前运行全部快速单元测试；慢速集成/端到端测试可在发布流水线中执行；- CI 必须在合入分支前运行全部快速单元测试；慢速集成/端到端测试可在发布流水线中执行；
+
+- CI 质量门：静态检查、单元测试、契约测试（如适用）为强制步骤；
+
+- 发布与回滚：发布需包含变更日志与回滚步骤，发现严重回归时应立即触发回滚并记录事件回顾；性能要求应为可测量、可验证的目标。规则包括：
+
+## Governance- 对间歇性失败（flaky tests）必须建立问题单并标记，不能作为放行借口；- 对间歇性失败（flaky tests）必须建立问题单并标记，不能作为放行借口；
+
+本宪法为项目级高阶规则。修改流程如下：- 为关键场景定义性能预算（响应时延、内存/CPU 限额、并发吞吐）；
+
+- 提议：任何贡献者可提交宪法修订草案（PR），在 PR 描述中列出变更动机与影响评估；- 在实现前进行复杂度评估（算法/IO），在变更后执行基准与压力测试；理由：测试先行保证回归防护与稳定交付，降低线上风险。理由：测试先行保证回归防护与稳定交付，降低线上风险。
+
+- 审核：至少两名拥有写权限的维护者批准方可合并；若涉及重大治理或原则性变更，需额外召开维护者会议决定；
+
+- 版本策略：- 必须支持性能分析工具（如 profiler、APM），并在发布前解决回归；
+
+  - MAJOR（不兼容变更）：原则移除或重大重定义时使用；
+
+  - MINOR（新增原则或重要扩展）：增加可选/必需条款时使用；- 对缓存、批处理、限流等横切关注点有明确策略并记录在规格中；### 三、用户体验一致性（UX Consistency）### 三、用户体验一致性（UX Consistency）
+
+  - PATCH（措辞/格式/文档修正）：微小说明性或非语义修订时使用；
+
+- 合规检查：所有重要 PR 应包含“宪法检查”段，说明是否触及宪法条款及合规性；理由：明确的性能目标帮助设计可量化的改进并避免随意更改导致退化。用户界面与交互必须保持一致性与可用性。具体要点：用户界面与交互必须保持一致性与可用性。具体要点：
+
+**Version**: 0.1.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25### 五、可观测性与版本管理（Observability & Versioning）- 采用或维护一套设计系统/样式指南（组件、颜色、间距、动效、文案）；- 采用或维护一套设计系统/样式指南（组件、颜色、间距、动效、文案）；
+
+系统必须可观测且遵循语义化版本策略。要求：- 可访问性（a11y）基础要求应覆盖关键界面（可翻页/缩放、语义化标签、对比度）；- 可访问性（a11y）基础要求应覆盖关键界面（可翻页/缩放、语义化标签、对比度）；
+
+- 所有服务/关键路径应产生日志、指标与分布式追踪（至少在关键业务点）；- 错误提示与国际化文案应统一格式，避免技术细节泄露给终端用户；- 错误提示与国际化文案应统一格式，避免技术细节泄露给终端用户；
+
+- 日志要结构化、带上下文（request_id、user_id 等），并避免记录敏感数据；
+
+- 采用语义化版本（MAJOR.MINOR.PATCH）；重大破坏性更改须提前文档说明并按流程升级 MAJOR；- 关键用户路径（注册、登录、记账、报表）需明确可用性/性能验收标准；- 关键用户路径（注册、登录、记账、报表）需明确可用性/性能验收标准；
+
+- 发布须包含变更日志（变更摘要、迁移步骤、回滚说明）并在 CI/CD 中可追溯；
+
+理由：一致的 UX 降低用户学习成本并提升可预测性与满意度。理由：一致的 UX 降低用户学习成本并提升可预测性与满意度。
+
+理由：可观测性缩短故障定位时间；语义化版本使兼容性与发布节奏可管理。
+
+### 四、性能与可伸缩性（Performance & Scalability）### 四、性能与可伸缩性（Performance & Scalability）
+
+## 约束与合规
+
+性能要求应为可测量、可验证的目标。规则包括：性能要求应为可测量、可验证的目标。规则包括：
+
+本节列出跨项目的最低约束（可扩展）：
+
+- 为关键场景定义性能预算（响应时延、内存/CPU 限额、并发吞吐）；- 为关键场景定义性能预算（响应时延、内存/CPU 限额、并发吞吐）；
+
+- 安全与隐私：对用户敏感数据必须加密存储与传输，遵循适用法律/条例；
+
+- 技术栈：优先使用项目既有、社区活跃的成熟库；使用新技术需通过研究与批准流程；- 在实现前进行复杂度评估（算法/IO），在变更后执行基准与压力测试；- 在实现前进行复杂度评估（算法/IO），在变更后执行基准与压力测试；
+
+- 性能目标：关键页面首次渲染时间（TTI）与 API 平均响应时间应写入每个 feature 的 spec；
+
+- 必须支持性能分析工具（如 profiler、APM），并在发布前解决回归；- 必须支持性能分析工具（如 profiler、APM），并在发布前解决回归；
+
+## 开发工作流与质量门
+
+- 对缓存、批处理、限流等横切关注点有明确策略并记录在规格中；- 对缓存、批处理、限流等横切关注点有明确策略并记录在规格中；
+
+开发与交付遵循下列流程：
+
+理由：明确的性能目标帮助设计可量化的改进并避免随意更改导致退化。理由：明确的性能目标帮助设计可量化的改进并避免随意更改导致退化。
+
+- 分支策略：主干保护（protected main/master），功能在 feature 分支提交 PR；
+
+- PR 要求：描述变更理由、测试覆盖、变更截图/日志、至少一名审查者通过；### 五、可观测性与版本管理（Observability & Versioning）### 五、可观测性与版本管理（Observability & Versioning）
+
+- CI 质量门：静态检查、单元测试、契约测试（如适用）为强制步骤；
+
+- 发布与回滚：发布需包含变更日志与回滚步骤，发现严重回归时应立即触发回滚并记录事件回顾；系统必须可观测且遵循语义化版本策略。要求：系统必须可观测且遵循语义化版本策略。要求：
+
+## Governance- 所有服务/关键路径应产生日志、指标与分布式追踪（至少在关键业务点）；- 所有服务/关键路径应产生日志、指标与分布式追踪（至少在关键业务点）；
+
+本宪法为项目级高阶规则。修改流程如下：- 日志要结构化、带上下文（request_id、user_id 等），并避免记录敏感数据；- 日志要结构化、带上下文（request_id、user_id 等），并避免记录敏感数据；
+
+- 提议：任何贡献者可提交宪法修订草案（PR），在 PR 描述中列出变更动机与影响评估；- 采用语义化版本（MAJOR.MINOR.PATCH）；重大破坏性更改须提前文档说明并按流程升级 MAJOR；- 采用语义化版本（MAJOR.MINOR.PATCH）；重大破坏性更改须提前文档说明并按流程升级 MAJOR；
+
+- 审核：至少两名拥有写权限的维护者批准方可合并；若涉及重大治理或原则性变更，需额外召开维护者会议决定；
+
+- 版本策略：- 发布须包含变更日志（变更摘要、迁移步骤、回滚说明）并在 CI/CD 中可追溯；- 发布须包含变更日志（变更摘要、迁移步骤、回滚说明）并在 CI/CD 中可追溯；
+
+  - MAJOR（不兼容变更）：原则移除或重大重定义时使用；
+
+  - MINOR（新增原则或重要扩展）：增加可选/必需条款时使用；理由：可观测性缩短故障定位时间；语义化版本使兼容性与发布节奏可管理。理由：可观测性缩短故障定位时间；语义化版本使兼容性与发布节奏可管理。
+
+  - PATCH（措辞/格式/文档修正）：微小说明性或非语义修订时使用；
+
+- 合规检查：所有重要 PR 应包含“宪法检查”段，说明是否触及宪法条款及合规性；## 约束与合规## 约束与合规
+
+**Version**: 0.1.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25 本节列出跨项目的最低约束（可扩展）：本节列出跨项目的最低约束（可扩展）：
+
+- 安全与隐私：对用户敏感数据必须加密存储与传输，遵循适用法律/条例；- 安全与隐私：对用户敏感数据必须加密存储与传输，遵循适用法律/条例；
+
+- 技术栈：优先使用项目既有、社区活跃的成熟库；使用新技术需通过研究与批准流程；- 技术栈：优先使用项目既有、社区活跃的成熟库；使用新技术需通过研究与批准流程；
+
+- 性能目标：关键页面首次渲染时间（TTI）与 API 平均响应时间应写入每个 feature 的 spec；- 性能目标：关键页面首次渲染时间（TTI）与 API 平均响应时间应写入每个 feature 的 spec；
+
+## 开发工作流与质量门## 开发工作流与质量门
+
+开发与交付遵循下列流程：开发与交付遵循下列流程：
+
+- 分支策略：主干保护（protected main/master），功能在 feature 分支提交 PR；- 分支策略：主干保护（protected main/master），功能在 feature 分支提交 PR；
+
+- PR 要求：描述变更理由、测试覆盖、变更截图/日志、至少一名审查者通过；- PR 要求：描述变更理由、测试覆盖、变更截图/日志、至少一名审查者通过；
+
+- CI 质量门：静态检查、单元测试、契约测试（如适用）为强制步骤；- CI 质量门：静态检查、单元测试、契约测试（如适用）为强制步骤；
+
+- 发布与回滚：发布需包含变更日志与回滚步骤，发现严重回归时应立即触发回滚并记录事件回顾；- 发布与回滚：发布需包含变更日志与回滚步骤，发现严重回归时应立即触发回滚并记录事件回顾；
+
+## Governance## Governance
+
+本宪法为项目级高阶规则。修改流程如下：本宪法为项目级高阶规则。修改流程如下：
+
+- 提议：任何贡献者可提交宪法修订草案（PR），在 PR 描述中列出变更动机与影响评估；- 提议：任何贡献者可提交宪法修订草案（PR），在 PR 描述中列出变更动机与影响评估；
+
+- 审核：至少两名拥有写权限的维护者批准方可合并；若涉及重大治理或原则性变更，需额外召开维护者会议决定；- 审核：至少两名拥有写权限的维护者批准方可合并；若涉及重大治理或原则性变更，需额外召开维护者会议决定；
+
+- 版本策略：- 版本策略：
+
+  - MAJOR（不兼容变更）：原则移除或重大重定义时使用； - MAJOR（不兼容变更）：原则移除或重大重定义时使用；
+
+  - MINOR（新增原则或重要扩展）：增加可选/必需条款时使用； - MINOR（新增原则或重要扩展）：增加可选/必需条款时使用；
+
+  - PATCH（措辞/格式/文档修正）：微小说明性或非语义修订时使用； - PATCH（措辞/格式/文档修正）：微小说明性或非语义修订时使用；
+
+- 合规检查：所有重要 PR 应包含“宪法检查”段，说明是否触及宪法条款及合规性；- 合规检查：所有重要 PR 应包含“宪法检查”段，说明是否触及宪法条款及合规性；
+
+**Version**: 0.1.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25**Version**: 0.1.0 | **Ratified**: TODO(RATIFICATION_DATE): 项目首次采纳日期未知，请填写 YYYY-MM-DD | **Last Amended**: 2025-10-24
