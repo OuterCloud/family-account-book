@@ -4,4 +4,4 @@ SQLAlchemy
 pandas
 pytest
 pytest-qt
-PyMySQL
+pyinstaller

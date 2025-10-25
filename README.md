@@ -117,26 +117,18 @@ python -m pytest tests/ -v
 
 ## 数据库配置
 
-应用支持 MySQL 数据库。在运行应用前，请确保：
+应用使用 **SQLite** 数据库，开箱即用，无需额外安装和配置：
 
-1. **安装 MySQL 服务器** 并启动服务
-2. **创建数据库用户** 或使用现有用户
-3. **修改数据库配置**（在 `family_account_book/database.py` 中）：
+- **数据库位置**: `~/Documents/家庭账本/family_account_book.db`
+- **自动创建**: 首次运行时自动创建数据库和表结构
+- **数据持久化**: 数据保存在本地文件中，无需网络连接
 
-```python
-# 修改为您的 MySQL 连接信息
-DATABASE_URL = "mysql+pymysql://用户名:密码@localhost:3306/数据库名"
-```
+**优势：**
 
-**示例配置：**
-
-```python
-DATABASE_URL = "mysql+pymysql://root:12345678@localhost:3306/family_account_book"
-```
-
-应用会自动创建数据库和表结构，无需手动创建。
-
-**注意：** 如果使用其他数据库，请相应修改 `requirements.txt` 和连接字符串。
+- ✅ 无需安装 MySQL 或其他数据库服务器
+- ✅ 开箱即用，应用启动即可使用
+- ✅ 数据文件易于备份和迁移
+- ✅ 跨平台兼容
 
 ## 技术栈
 
@@ -147,6 +139,52 @@ DATABASE_URL = "mysql+pymysql://root:12345678@localhost:3306/family_account_book
 - **导出**: pandas + openpyxl
 - **测试**: pytest
 
-## 许可证
+## 打包和分发
 
-MIT License
+### 自动打包
+
+运行打包脚本：
+
+```bash
+./build_app.sh
+```
+
+### 手动打包
+
+1. 激活虚拟环境：
+
+```bash
+source venv/bin/activate
+```
+
+2. 安装 PyInstaller：
+
+```bash
+pip install pyinstaller
+```
+
+3. 打包应用：
+
+```bash
+pyinstaller --onedir --windowed --name="家庭账本" main.py
+```
+
+### 分发说明
+
+打包完成后，在 `dist/` 目录下会生成：
+
+- **`家庭账本.app`** - macOS 应用程序包（推荐）
+- **`家庭账本/`** - 应用程序目录
+
+**分发方法：**
+
+1. 将 `dist/家庭账本.app` 文件复制到其他 macOS 电脑
+2. 双击运行，无需安装 Python、MySQL 或其他依赖
+3. 首次运行可能需要允许"从未知开发者运行"（在系统偏好设置 > 安全性与隐私中允许）
+4. 应用程序会自动在用户 Documents 目录创建数据库文件
+
+**数据库说明：**
+
+- 数据存储在 `~/Documents/家庭账本/family_account_book.db`
+- SQLite 数据库，开箱即用，无需额外配置
+- 数据文件可轻松备份和迁移
