@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "family-account-book"
+version = "0.1.0"
+description = "Desktop family accounting app"
+authors = ["author <author@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.scripts]
+family-account-book = "family_account_book.main:main_app"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

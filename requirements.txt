@@ -1,0 +1,7 @@
+PyQt6
+matplotlib
+SQLAlchemy
+pandas
+pytest
+pytest-qt
+PyMySQL
