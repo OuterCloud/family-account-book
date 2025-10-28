@@ -24,5 +24,13 @@ dist/
 .vscode/launch.json
 .idea/
 
+# 测试覆盖率报告
+htmlcov/
+.coverage
+coverage.xml
+
+# GitHub Actions 构建产物
+.github/workflows/artifacts/
+
 # macOS
 .DS_Store

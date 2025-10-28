@@ -1,0 +1,145 @@
+name: CI - 家庭账本应用
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.11, 3.12, 3.13]
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 安装系统依赖
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0
+
+      - name: 缓存依赖
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: 安装 Python 依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 代码风格检查
+        run: |
+          pip install black isort flake8
+          # 检查代码格式
+          black --check --diff family_account_book/
+          # 检查导入排序
+          isort --check-only --diff family_account_book/
+          # 代码质量检查
+          flake8 family_account_book/ --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: 运行单元测试
+        run: |
+          export QT_QPA_PLATFORM=offscreen
+          export DISPLAY=:99.0
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          sleep 3
+          python -m pytest tests/ -v --tb=short
+
+      - name: 生成测试覆盖率报告
+        run: |
+          pip install pytest-cov
+          export QT_QPA_PLATFORM=offscreen
+          export DISPLAY=:99.0
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          sleep 3
+          python -m pytest tests/ --cov=family_account_book --cov-report=xml --cov-report=html
+
+      - name: 上传覆盖率报告到 Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+  build-macos:
+    runs-on: macos-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: 构建 macOS 应用
+        run: |
+          chmod +x build_app.sh
+          ./build_app.sh
+
+      - name: 测试构建结果
+        run: |
+          ls -la dist/
+          # 检查应用是否成功创建
+          test -d "dist/家庭账本.app"
+          echo "✅ macOS 应用构建成功"
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: family-account-book-macos
+          path: dist/家庭账本.app
+          retention-days: 30
+
+      - name: 计算文件大小
+        run: |
+          APP_SIZE=$(du -sh "dist/家庭账本.app" | cut -f1)
+          echo "📦 应用大小: $APP_SIZE"
+          echo "APP_SIZE=$APP_SIZE" >> $GITHUB_ENV
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [test, build-macos]
+    if: always()
+
+    steps:
+      - name: 构建状态通知
+        run: |
+          if [ "${{ needs.test.result }}" = "success" ] && [ "${{ needs.build-macos.result }}" = "success" ]; then
+            echo "✅ CI 流程全部成功完成"
+            echo "🧪 测试通过"
+            echo "📦 macOS 应用构建成功"
+          elif [ "${{ needs.test.result }}" = "failure" ]; then
+            echo "❌ 测试失败"
+            exit 1
+          elif [ "${{ needs.build-macos.result }}" = "failure" ]; then
+            echo "❌ macOS 应用构建失败"
+            exit 1
+          else
+            echo "⚠️  CI 流程部分失败"
+            exit 1
+          fi
